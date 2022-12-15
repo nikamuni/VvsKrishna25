@@ -4,9 +4,9 @@ STEP1: CONTAINER PLATFORM INSTALLATION(CRI) - SINGULARITY
 
 		Install the required packages:
 
-        	$ sudo yum groupinstall -y
+        		$ sudo yum groupinstall -y
 					
-            $ sudo yum install -y build-essential libglib2.0-dev libseccomp-dev pkg-config 
+            		$ sudo yum install -y build-essential libglib2.0-dev libseccomp-dev pkg-config 
 			
 			$ sudo yum install -y git wget
 			
@@ -15,11 +15,11 @@ STEP1: CONTAINER PLATFORM INSTALLATION(CRI) - SINGULARITY
 
 		Install GO Software:
 
-        	$ export VERSION=1.19.4 OS=linux ARCH=amd64 
+        		$ export VERSION=1.19.4 OS=linux ARCH=amd64 
 
-            $ wget https://dl.google.com/go/go$VERSION.$OS-$ARCH.tar.gz
+            		$ wget https://dl.google.com/go/go$VERSION.$OS-$ARCH.tar.gz
 
-            $ sudo tar -C /usr/local -xzvf go$VERSION.$OS-$ARCH.tar.gz 
+            		$ sudo tar -C /usr/local -xzvf go$VERSION.$OS-$ARCH.tar.gz 
 
 			$  rm go$VERSION.$OS-$ARCH.tar.gz
                
@@ -28,12 +28,13 @@ STEP1: CONTAINER PLATFORM INSTALLATION(CRI) - SINGULARITY
 
             	$ echo 'export PATH=/usr/local/go/bin:$PATH' >> ~/.bashrc 
 
-				$ source ~/.bashrc
+		$ source ~/.bashrc
+		
         Singularity Installation on RHEL9:
 
 			Compile and install Singularity:
 
-        		$ export VERSION=3.10.4
+        			$ export VERSION=3.10.4
 	
 				$ wget https://github.com/sylabs/singularity/releases/download/v${VERSION}/singularity-ce-${VERSION}.tar.gz
                 
@@ -111,7 +112,9 @@ STEP2: Install Kubernetes (k8s) Cluster on RHEL
 
      2.6 Install Kubernetes packages
 
-         2.6.1 Create Kubernetes.repo file (file attached to this mail) and copy it in /etc/yum/repos.d/ folder
+         2.6.1 Create Kubernetes.repo file (file attached to this repo) and copy it in /etc/yum/repos.d/ folder
+	 
+	 	https://github.com/VvsKrishna25/VvsKrishna25/blob/main/kubernetes.repo.txt
 
          2.6.2 Install K8 packages
 
@@ -126,19 +129,49 @@ STEP2: Install Kubernetes (k8s) Cluster on RHEL
 Step3: Integrating singularity with Kubernetes
 
 	3.1 Installing singularity-cri
-		$ yum install socat
+		$ apt install socat
 		
 		$ git clone https://github.com/sylabs/singularity-cri.git
 		
 		$ cd singularity-cri
 		
-		$ 
+		$ git clone https://github.com/sylabs/singularity-cri.git
+		
+		$ cd singularity-cri
+		
+		$ git checkout tags/v1.0.0-beta.5 -b v1.0.0-beta.5 
+		
+		$ make && sudo make install
+		
+		
+	3.2 Integrating with Kubernetes
+	
+		3.2.1 Create Singularity-CRI service
+		
+			Create a systemd service with the content given in below link 
+			
+				https://github.com/VvsKrishna25/VvsKrishna25/blob/main/sycri.service
+				
+			Enable and start service
+			
+				$ sudo systemctl enable sycri
+				
+				$ sudo systemctl start sycri
+				
+			To verify Singularity-CRI is running do the following
+			
+				$ sudo systemctl status sycri
+		3.2.2 Modify kubelet config and restart kubelet service
+		
+			$ cat > /etc/default/kubelet <<EOF
+  				KUBELET_EXTRA_ARGS=--container-runtime=remote \
+  				--container-runtime-endpoint=unix:///var/run/singularity.sock \
+  				--image-service-endpoint=unix:///var/run/singularity.sock
+  				EOF
+			
+			$ sudo systemctl restart kubelet
 
- 
-
- 
-
-Step:4  Install Kubernetes cluster
+Step:4  Setting up  Kubernetes cluster
 
 	$ log=${HOME}/install-master.log
 
