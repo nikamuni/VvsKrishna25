@@ -1,0 +1,14 @@
+[Unit]
+Description=Singularity-CRI
+After=network.target
+StartLimitIntervalSec=0
+
+[Service]
+Type=simple
+Restart=always
+RestartSec=1
+ExecStart=/usr/local/bin/sycri
+Environment="PATH=/usr/local/libexec/singularity/bin:/bin:/sbin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin"
+
+[Install]
+WantedBy=multi-user.target
