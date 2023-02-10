@@ -5,7 +5,7 @@ V2.0: Updated Guide for K8 Setup
 ***
 # KUBERNETES CLUSTER INSTALLATION
 ***
-
+![Sample Image](https://www.google.com/url?sa=i&url=https%3A%2F%2Fplatform9.com%2Fblog%2Fkubernetes-enterprise-chapter-2-kubernetes-architecture-concepts%2F&psig=AOvVaw1jAIlkuebothJT0zDYOupf&ust=1676086002126000&source=images&cd=vfe&ved=0CA0QjRxqFwoTCJDg266Biv0CFQAAAAAdAAAAABAD)
 ## Master Node Installation(pl1vm1taack8m01)  
 ### Installing Docker Prerequisites packages
 1. Update existing repository in the machine 
