@@ -5,7 +5,7 @@ V2.0: Updated Guide for K8 Setup
 ***
 # KUBERNETES CLUSTER INSTALLATION
 ***
-![Sample Image](nikamuni/VvsKrishna25Screenshot(1).png)
+![Sample Image](https://github.com/nikamuni/VvsKrishna25/blob/main/Screenshot%20(1).png)
 ## Master Node Installation(pl1vm1taack8m01)  
 ### Installing Docker Prerequisites packages
 1. Update existing repository in the machine 
