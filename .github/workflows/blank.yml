@@ -35,12 +35,23 @@ jobs:
           echo Add other actions to build,
           echo test, and deploy your project.
 
-  build-api-app:
+  build-no-dep:
+    runs-on: windows-latest
+    steps:
+      - run: echo "Hello windows latest with out dependency"
+
+  build-db:
     needs: build
     runs-on: windows-latest
+    steps:
+      - run: echo "Hello windows"
+    
   packaging:
-    needs: [build,build-api-app]
+    needs: [build,build-db]
     runs-on: ubuntu-20.04
+    steps:
+      - run: echo "Hello Ubuntu-20.04"
+    
     
 
       
