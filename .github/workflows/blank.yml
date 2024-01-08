@@ -34,11 +34,13 @@ jobs:
         run: |
           echo Add other actions to build,
           echo test, and deploy your project.
-          
+
   build-api-app:
     needs: build
+    runs-on: windows-latest
   packaging:
     needs: [build,build-api-app]
+    runs-on: ubuntu-20.04
     
 
       
