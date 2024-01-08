@@ -40,6 +40,12 @@ jobs:
     steps:
       - run: echo "Hello windows latest with out dependency"
 
+  build-dummy:
+    needs: build2
+    runs-on: windows-latest
+    steps:
+      - run: echo "Hello windows"
+
   build-db:
     needs: build
     runs-on: windows-latest
