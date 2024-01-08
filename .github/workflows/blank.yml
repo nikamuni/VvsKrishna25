@@ -51,6 +51,12 @@ jobs:
     runs-on: ubuntu-20.04
     steps:
       - run: echo "Hello Ubuntu-20.04"
+
+  build-test:
+    needs: build
+    runs-on: ubuntu-22.04
+    steps:
+      - run: echo "Hello Ubuntu-22.04"
     
     
 
